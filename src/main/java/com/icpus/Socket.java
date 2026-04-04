@@ -1,9 +1,15 @@
 package com.icpus;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
 public class Socket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true)
     private String socket;
 
     public Socket() {

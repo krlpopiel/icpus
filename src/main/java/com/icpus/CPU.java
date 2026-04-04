@@ -1,12 +1,18 @@
 package com.icpus;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
 public class CPU {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String brand;
-    private Integer socket_id;
+    @ManyToOne
+    @JoinColumn(name = "socket_id")
+    private Socket socket;
     private Double clockspeed;
     private Integer coresCount;
     private Integer threadsCount;
@@ -14,10 +20,10 @@ public class CPU {
     private Double priceEUR;
 
 
-    public CPU(Integer id, String brand, Integer socket_id, Double clockspeed, Integer coresCount, Integer threadsCount, Integer tdp, Double priceEUR) {
+    public CPU(Integer id, String brand, Socket socket_id, Double clockspeed, Integer coresCount, Integer threadsCount, Integer tdp, Double priceEUR) {
         this.id = id;
         this.brand = brand;
-        this.socket_id = socket_id;
+        this.socket = socket_id;
         this.clockspeed = clockspeed;
         this.coresCount = coresCount;
         this.threadsCount = threadsCount;
@@ -43,12 +49,12 @@ public class CPU {
         this.brand = brand;
     }
 
-    public Integer getSocket_id() {
-        return socket_id;
+    public Socket getSocket() {
+        return socket;
     }
 
-    public void setSocket_id(Integer socket_id) {
-        this.socket_id = socket_id;
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 
     public Double getClockspeed() {
@@ -95,11 +101,11 @@ public class CPU {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CPU cpu = (CPU) o;
-        return Objects.equals(id, cpu.id) && Objects.equals(brand, cpu.brand) && Objects.equals(socket_id, cpu.socket_id) && Objects.equals(clockspeed, cpu.clockspeed) && Objects.equals(coresCount, cpu.coresCount) && Objects.equals(threadsCount, cpu.threadsCount) && Objects.equals(tdp, cpu.tdp) && Objects.equals(priceEUR, cpu.priceEUR);
+        return Objects.equals(id, cpu.id) && Objects.equals(brand, cpu.brand) && Objects.equals(socket, cpu.socket) && Objects.equals(clockspeed, cpu.clockspeed) && Objects.equals(coresCount, cpu.coresCount) && Objects.equals(threadsCount, cpu.threadsCount) && Objects.equals(tdp, cpu.tdp) && Objects.equals(priceEUR, cpu.priceEUR);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brand, socket_id, clockspeed, coresCount, threadsCount, tdp, priceEUR);
+        return Objects.hash(id, brand, socket, clockspeed, coresCount, threadsCount, tdp, priceEUR);
     }
 }
