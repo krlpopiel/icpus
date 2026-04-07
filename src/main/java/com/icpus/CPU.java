@@ -10,6 +10,7 @@ public class CPU {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String brand;
+    private String model;
     @ManyToOne
     @JoinColumn(name = "socket_id")
     private Socket socket;
@@ -20,9 +21,10 @@ public class CPU {
     private Double priceEUR;
 
 
-    public CPU(Integer id, String brand, Socket socket_id, Double clockspeed, Integer coresCount, Integer threadsCount, Integer tdp, Double priceEUR) {
+    public CPU(Integer id, String brand, String model, Socket socket_id, Double clockspeed, Integer coresCount, Integer threadsCount, Integer tdp, Double priceEUR) {
         this.id = id;
         this.brand = brand;
+        this.model = model;
         this.socket = socket_id;
         this.clockspeed = clockspeed;
         this.coresCount = coresCount;
@@ -47,6 +49,14 @@ public class CPU {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public Socket getSocket() {
@@ -101,11 +111,11 @@ public class CPU {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CPU cpu = (CPU) o;
-        return Objects.equals(id, cpu.id) && Objects.equals(brand, cpu.brand) && Objects.equals(socket, cpu.socket) && Objects.equals(clockspeed, cpu.clockspeed) && Objects.equals(coresCount, cpu.coresCount) && Objects.equals(threadsCount, cpu.threadsCount) && Objects.equals(tdp, cpu.tdp) && Objects.equals(priceEUR, cpu.priceEUR);
+        return Objects.equals(id, cpu.id) && Objects.equals(brand, cpu.brand) && Objects.equals(model, cpu.model) && Objects.equals(socket, cpu.socket) && Objects.equals(clockspeed, cpu.clockspeed) && Objects.equals(coresCount, cpu.coresCount) && Objects.equals(threadsCount, cpu.threadsCount) && Objects.equals(tdp, cpu.tdp) && Objects.equals(priceEUR, cpu.priceEUR);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brand, socket, clockspeed, coresCount, threadsCount, tdp, priceEUR);
+        return Objects.hash(id, brand, model, socket, clockspeed, coresCount, threadsCount, tdp, priceEUR);
     }
 }

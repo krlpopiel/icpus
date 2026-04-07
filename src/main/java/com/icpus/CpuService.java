@@ -31,6 +31,7 @@ public class CpuService {
     public Optional<CPU> updateCpu(Integer id, CPU updatedCpu) {
         return cpuRepository.findById(id).map(existingCpu -> {
             existingCpu.setBrand(updatedCpu.getBrand());
+            existingCpu.setModel(updatedCpu.getModel());
             existingCpu.setSocket(updatedCpu.getSocket());
             existingCpu.setClockspeed(updatedCpu.getClockspeed());
             existingCpu.setCoresCount(updatedCpu.getCoresCount());
