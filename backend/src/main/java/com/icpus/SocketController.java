@@ -43,7 +43,7 @@ public class SocketController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Socket> updateSocket(@PathVariable Integer id, @RequestBody Socket updatedSocket){
         return socketService.updateSocket(id, updatedSocket).map(socket -> ResponseEntity.ok().body(socket))
                 .orElse(ResponseEntity.notFound().build());

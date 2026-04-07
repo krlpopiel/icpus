@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/cpus")
-@CrossOrigin(origins = "https://localhost:5173")
+@RequestMapping("/api/cpus")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CpuController {
     private final CpuService cpuService;
 
