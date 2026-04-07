@@ -186,7 +186,7 @@ function CpuView({ sockets, onError, refreshSockets }) {
           </select>
         </div>
         <div className="form-group">
-          <label>Clock Speed (MHz)</label>
+          <label>Clock Speed (GHz)</label>
           <input
             type="number"
             value={cpuForm.clockspeed}
