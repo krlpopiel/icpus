@@ -1,6 +1,8 @@
 package com.icpus;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.util.Objects;
 
@@ -9,15 +11,22 @@ public class CPU {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String brand;
+    @NotBlank
     private String model;
     @ManyToOne
     @JoinColumn(name = "socket_id")
     private Socket socket;
+    @Positive
     private Double clockspeed;
+    @Positive
     private Integer coresCount;
+    @Positive
     private Integer threadsCount;
+    @Positive
     private Integer tdp;
+    @Positive
     private Double priceEUR;
 
 

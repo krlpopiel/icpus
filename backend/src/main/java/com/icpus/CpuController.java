@@ -1,5 +1,6 @@
 package com.icpus;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class CpuController {
     }
 
     @PostMapping
-    public ResponseEntity<CPU> createCpu(@RequestBody CPU newCpu){
+    public ResponseEntity<CPU> createCpu(@Valid @RequestBody CPU newCpu){
         CPU savedCpu = cpuService.createCpu(newCpu);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCpu);
     }
@@ -42,7 +43,7 @@ public class CpuController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CPU> updateCpu(@PathVariable Integer id, @RequestBody CPU updatedCpu) {
+    public ResponseEntity<CPU> updateCpu(@PathVariable Integer id, @Valid @RequestBody CPU updatedCpu) {
         return cpuService.updateCpu(id, updatedCpu).map(cpu -> ResponseEntity.ok().body(cpu))
                 .orElse(ResponseEntity.notFound().build());
     }
