@@ -1,6 +1,7 @@
 package com.icpus;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class Socket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(unique = true)
+    @NotBlank
     private String socket;
 
     public Socket() {

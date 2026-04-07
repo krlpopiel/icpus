@@ -1,7 +1,7 @@
 package com.icpus;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +30,7 @@ public class SocketController {
     }
 
     @PostMapping
-    public ResponseEntity<Socket> createSocket(@RequestBody Socket newSocket){
+    public ResponseEntity<Socket> createSocket(@Valid @RequestBody Socket newSocket){
         Socket savedSocket = socketService.createSocket(newSocket);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedSocket);
     }
@@ -43,8 +43,8 @@ public class SocketController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping
-    public ResponseEntity<Socket> updateSocket(@PathVariable Integer id, @RequestBody Socket updatedSocket){
+    @PutMapping("/{id}")
+    public ResponseEntity<Socket> updateSocket(@PathVariable Integer id, @Valid @RequestBody Socket updatedSocket){
         return socketService.updateSocket(id, updatedSocket).map(socket -> ResponseEntity.ok().body(socket))
                 .orElse(ResponseEntity.notFound().build());
     }
