@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const API_BASE_URL = "http://localhost:8080/api"; //can be moved to .env file
+const API_BASE_URL = "/api";
 
 function App() {
   const [view, setView] = useState("cpus");
