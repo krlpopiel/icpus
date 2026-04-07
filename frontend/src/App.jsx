@@ -91,10 +91,10 @@ function App() {
         socket: socket ? { id: socket.id, socket: socket.socket } : null
       };
 
-      const url = selectedCpu 
+      const url = selectedCpu
         ? `${API_BASE_URL}/cpus/${selectedCpu.id}`
         : `${API_BASE_URL}/cpus`;
-      
+
       const method = selectedCpu ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -104,7 +104,7 @@ function App() {
       });
 
       if (!response.ok) throw new Error("Failed to save CPU");
-      
+
       await fetchCPUs();
       handleAddNewCpu();
     } catch (err) {
@@ -142,10 +142,10 @@ function App() {
 
   const handleSaveSocket = async () => {
     try {
-      const url = selectedSocket 
+      const url = selectedSocket
         ? `${API_BASE_URL}/sockets/${selectedSocket.id}`
         : `${API_BASE_URL}/sockets`;
-      
+
       const method = selectedSocket ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -155,7 +155,7 @@ function App() {
       });
 
       if (!response.ok) throw new Error("Failed to save Socket");
-      
+
       await fetchSockets();
       handleAddNewSocket();
     } catch (err) {
@@ -179,14 +179,18 @@ function App() {
 
   return (
     <div className="container">
-      <h1>CPU & SOCKET MANAGER</h1>
-      
+      <h1>iCPUs</h1>
+
       <nav>
         <button onClick={() => setView("cpus")}>CPUs</button>
         <button onClick={() => setView("sockets")}>Sockets</button>
       </nav>
 
-      {error && <div className="error">{error}</div>}
+      {error && (
+        <div className="error" onClick={() => setError(null)} style={{ cursor: 'pointer' }}>
+          {error} (Click to close)
+        </div>
+      )}
 
       <div className="main-content">
         {view === "cpus" ? (
@@ -196,13 +200,13 @@ function App() {
               <button onClick={handleAddNewCpu}>Add New CPU</button>
               <ul>
                 {cpus.map((cpu) => (
-                  <li 
-                    key={cpu.id} 
+                  <li
+                    key={cpu.id}
                     className={selectedCpu?.id === cpu.id ? "selected" : ""}
                     onClick={() => handleCpuSelect(cpu)}
                   >
                     <strong>{cpu.brand} {cpu.model}</strong>
-                    <br/>
+                    <br />
                     <small>Socket: {cpu.socket?.socket || "N/A"}</small>
                   </li>
                 ))}
@@ -213,23 +217,23 @@ function App() {
               <h2>{selectedCpu ? "Edit CPU" : "Add CPU"}</h2>
               <div className="form-group">
                 <label>Brand</label>
-                <input 
-                  type="text" 
-                  value={cpuForm.brand} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, brand: e.target.value })} 
+                <input
+                  type="text"
+                  value={cpuForm.brand}
+                  onChange={(e) => setCpuForm({ ...cpuForm, brand: e.target.value })}
                 />
               </div>
               <div className="form-group">
                 <label>Model</label>
-                <input 
-                  type="text" 
-                  value={cpuForm.model} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, model: e.target.value })} 
+                <input
+                  type="text"
+                  value={cpuForm.model}
+                  onChange={(e) => setCpuForm({ ...cpuForm, model: e.target.value })}
                 />
               </div>
               <div className="form-group">
                 <label>Socket</label>
-                <select 
+                <select
                   value={cpuForm.socketId}
                   onChange={(e) => setCpuForm({ ...cpuForm, socketId: e.target.value })}
                 >
@@ -240,42 +244,42 @@ function App() {
               </div>
               <div className="form-group">
                 <label>Clock Speed (MHz)</label>
-                <input 
-                  type="number" 
-                  value={cpuForm.clockspeed} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, clockspeed: parseInt(e.target.value) })} 
+                <input
+                  type="number"
+                  value={cpuForm.clockspeed}
+                  onChange={(e) => setCpuForm({ ...cpuForm, clockspeed: parseInt(e.target.value) })}
                 />
               </div>
               <div className="form-group">
                 <label>Cores</label>
-                <input 
-                  type="number" 
-                  value={cpuForm.coresCount} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, coresCount: parseInt(e.target.value) })} 
+                <input
+                  type="number"
+                  value={cpuForm.coresCount}
+                  onChange={(e) => setCpuForm({ ...cpuForm, coresCount: parseInt(e.target.value) })}
                 />
               </div>
               <div className="form-group">
                 <label>Threads</label>
-                <input 
-                  type="number" 
-                  value={cpuForm.threadsCount} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, threadsCount: parseInt(e.target.value) })} 
+                <input
+                  type="number"
+                  value={cpuForm.threadsCount}
+                  onChange={(e) => setCpuForm({ ...cpuForm, threadsCount: parseInt(e.target.value) })}
                 />
               </div>
               <div className="form-group">
                 <label>TDP (W)</label>
-                <input 
-                  type="number" 
-                  value={cpuForm.tdp} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, tdp: parseInt(e.target.value) })} 
+                <input
+                  type="number"
+                  value={cpuForm.tdp}
+                  onChange={(e) => setCpuForm({ ...cpuForm, tdp: parseInt(e.target.value) })}
                 />
               </div>
               <div className="form-group">
                 <label>Price (EUR)</label>
-                <input 
-                  type="number" 
-                  value={cpuForm.priceEUR} 
-                  onChange={(e) => setCpuForm({ ...cpuForm, priceEUR: parseFloat(e.target.value) })} 
+                <input
+                  type="number"
+                  value={cpuForm.priceEUR}
+                  onChange={(e) => setCpuForm({ ...cpuForm, priceEUR: parseFloat(e.target.value) })}
                 />
               </div>
               <div className="actions">
@@ -293,8 +297,8 @@ function App() {
               <button onClick={handleAddNewSocket}>Add New Socket</button>
               <ul>
                 {sockets.map((socket) => (
-                  <li 
-                    key={socket.id} 
+                  <li
+                    key={socket.id}
                     className={selectedSocket?.id === socket.id ? "selected" : ""}
                     onClick={() => handleSocketSelect(socket)}
                   >
@@ -308,10 +312,10 @@ function App() {
               <h2>{selectedSocket ? "Edit Socket" : "Add Socket"}</h2>
               <div className="form-group">
                 <label>Socket Name</label>
-                <input 
-                  type="text" 
-                  value={socketForm.socket} 
-                  onChange={(e) => setSocketForm({ ...socketForm, socket: e.target.value })} 
+                <input
+                  type="text"
+                  value={socketForm.socket}
+                  onChange={(e) => setSocketForm({ ...socketForm, socket: e.target.value })}
                 />
               </div>
               <div className="actions">
